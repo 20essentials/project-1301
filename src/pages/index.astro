@@ -1,0 +1,13 @@
+---
+import Main from '@/components/Main.astro';
+import Layout from '@/layouts/Layout.astro';
+import { baseUrl } from '@/utils/functions';
+
+const arrayImages = Array.from({ length: 8 }, (_, i) =>
+  baseUrl(`/assets/a${i + 1}.avif`)
+);
+---
+
+<Layout>
+  <Main arrayImages={arrayImages} />
+</Layout>

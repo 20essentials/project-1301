@@ -1,0 +1,74 @@
+---
+import { baseUrl } from '@/utils/functions';
+interface Props {
+  arrayImages: string[];
+}
+
+const {
+  arrayImages = Array.from({ length: 8 }, (_, i) =>
+    baseUrl(`/assets/a${i + 1}.avif`)
+  )
+} = Astro.props;
+---
+
+<main class='am-container'>
+  <section class='am-slider'>
+    {
+      arrayImages.map((src: string, i: number) => {
+        return (
+          <span class='container-img' style={`--i: ${i + 1}`}>
+            <img src={src} class='am-img' />
+          </span>
+        );
+      })
+    }
+  </section>
+</main>
+
+<style>
+  .am-container {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    place-content: center;
+    background-color: #000;
+    transform-style: preserve-3d;
+    perspective: 78.13vmax;
+    overflow-x: hidden;
+  }
+
+  .am-slider {
+    width: 13.02vmax;
+    --h: 19.53vmax;
+    height: var(--h);
+    position: relative;
+    transform-style: preserve-3d;
+
+    .container-img {
+      transform: rotateY(calc(var(--i) * 45deg)) translateZ(var(--h));
+    }
+
+    .container-img,
+    .am-img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+    }
+
+    .am-img {
+      object-fit: cover;
+    }
+  }
+</style>
+
+<script>
+  import { $ } from '@/utils/functions';
+  const $container = $<HTMLElement>('.am-slider');
+
+  document.addEventListener('mousemove', e => {
+    const x = e.clientX / 4;
+    $container.style.transform = `rotateY(${x}deg)`;
+  });
+</script>
