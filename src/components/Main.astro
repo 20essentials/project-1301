@@ -36,6 +36,7 @@ const {
     transform-style: preserve-3d;
     perspective: 78.13vmax;
     overflow-x: hidden;
+    touch-action: none;
   }
 
   .am-slider {
@@ -67,7 +68,7 @@ const {
   import { $ } from '@/utils/functions';
   const $container = $<HTMLElement>('.am-slider');
 
-  document.addEventListener('mousemove', e => {
+  document.addEventListener('pointermove', e => {
     const x = e.clientX / 4;
     $container.style.transform = `rotateY(${x}deg)`;
   });
