@@ -17,7 +17,7 @@ const {
       arrayImages.map((src: string, i: number) => {
         return (
           <span class='container-img' style={`--i: ${i + 1}`}>
-            <img draggable="false" src={src} class='am-img' />
+            <img draggable='false' src={src} class='am-img' />
           </span>
         );
       })
@@ -65,32 +65,31 @@ const {
 </style>
 
 <script>
-import { $ } from '@/utils/functions';
+  import { $ } from '@/utils/functions';
+  const $container = $<HTMLElement>('.am-slider');
 
-const $container = $<HTMLElement>('.am-slider');
+  let lastX = 0;
+  let rotation = 0;
+  let isDragging = false;
 
-let lastX = 0;
-let rotation = 0;
-let isDragging = false;
+  document.addEventListener('pointerdown', e => {
+    isDragging = true;
+    lastX = e.clientX;
+  });
 
-document.addEventListener('pointerdown', e => {
-  isDragging = true;
-  lastX = e.clientX;
-});
+  document.addEventListener('pointermove', e => {
+    if (!isDragging) return;
 
-document.addEventListener('pointermove', e => {
-  if (!isDragging) return;
+    const factor = window.innerWidth < window.innerHeight ? 2 : 4;
 
-  const factor = window.innerWidth < window.innerHeight ? 2 : 4;
+    const deltaX = e.clientX - lastX;
+    lastX = e.clientX;
 
-  const deltaX = e.clientX - lastX;
-  lastX = e.clientX;
+    rotation += deltaX / factor;
+    $container.style.transform = `rotateY(${rotation}deg)`;
+  });
 
-  rotation += deltaX / factor;
-  $container.style.transform = `rotateY(${rotation}deg)`;
-});
-
-document.addEventListener('pointerup', () => {
-  isDragging = false;
-});
+  document.addEventListener('pointerup', () => {
+    isDragging = false;
+  });
 </script>
