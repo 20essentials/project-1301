@@ -7,7 +7,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "deploy": "pnpm gh-pages -d dist/"
+    "deploy": "pnpm build && pnpm gh-pages -d dist/"
   },
   "dependencies": {
     "astro": "5.13.5"

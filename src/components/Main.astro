@@ -69,7 +69,8 @@ const {
   const $container = $<HTMLElement>('.am-slider');
 
   document.addEventListener('pointermove', e => {
-    const x = e.clientX / 4;
+    const factor = window.innerWidth < window.innerHeight ? 2 : 4;
+    const x = e.clientX / factor;
     $container.style.transform = `rotateY(${x}deg)`;
   });
 </script>
